@@ -8,6 +8,7 @@ sort_routing_table = []
 for i in range(32):
     sort_routing_table.append(dict())
 
+# convert the prefix to binary (with length == mask)
 def get_prefix_bin(rule, mask):
     raw = rule.split('.')
     mask_len = int(mask) / 8
@@ -27,6 +28,7 @@ def get_prefix_bin(rule, mask):
 
     return ip
 
+# generate ip with prefix rule
 def random_ip(rule_list, rule, mask):
     raw = rule.split('.')
     mask_len = int(mask) / 8
@@ -64,10 +66,11 @@ def random_ip(rule_list, rule, mask):
             break
     return (ip, next_hop)
 
+# generate with ip and next hop
 def generate_trace(folder, date, time):
     input_file = open('iplookup_final/'+folder+'/'+date+'_'+time+'.txt', 'r', 1)
     content = input_file.readlines()
-    routing_table = dict()
+    routing_table = dict() # record the prefix and it descending sorted with the length of mask
 
     size = 10
     count_entry = 0
@@ -89,7 +92,6 @@ def generate_trace(folder, date, time):
         if int(mask) == 0: continue
         entry = get_prefix_bin(line[0], mask)
         sort_routing_table[32-int(mask)][entry] = next_hop
-        #if count_entry > 5: break
     #print(routing_table)
     #print('==========')
     #print(sort_routing_table)
@@ -118,6 +120,7 @@ def generate_trace(folder, date, time):
     output_file.close()
 
 
+# main
 folder = ['rrc00']#['rrc00', 'rrc01', 'rrc03', 'rrc04', 'rrc05']
 date = ['20211122']#['20211122','20211123']
 time = ['0000']#['0800', '1600']

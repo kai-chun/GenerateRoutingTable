@@ -12,6 +12,7 @@ def remove_repeat(folder, date, time):
 
     for c in content:
         line = list(c.split(' '))
+        # use dict to check if rule is repeated
         if dic.get(line[0],None) == None:
             next_hop = str(random.randint(0,255))+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))+"."+str(random.randint(0,255))
             dic[line[0]] = next_hop
@@ -20,6 +21,7 @@ def remove_repeat(folder, date, time):
     input_file.close()
     output_file.close()
 
+# main
 folder = ['rrc05']#['rrc00', 'rrc01', 'rrc03', 'rrc04', 'rrc05']
 date = ['20211123']#['20211122','20211123']
 time = ['1600']#['0800', '1600']
