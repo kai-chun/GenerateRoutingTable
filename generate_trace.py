@@ -36,7 +36,9 @@ def random_ip(rule_list, rule, mask):
 
     ip = ""
     for i in range(mask_len):
-        ip += raw[i]+"."
+        ip += raw[i]
+        if i != 3:
+            ip += "."
         
     for i in range(mask_len,4):
         if remain != 0:
